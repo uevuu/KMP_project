@@ -40,6 +40,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kodein.di)
             implementation(libs.bundles.sqlDelightCommon)
+            implementation(libs.koin)
         }
 
         androidMain.dependencies {
@@ -53,6 +54,8 @@ kotlin {
             implementation(libs.sql.delight.android.driver)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.bundles.coil)
+            implementation(libs.koin)
+            implementation(libs.koin.android)
         }
 
         iosMain.dependencies {

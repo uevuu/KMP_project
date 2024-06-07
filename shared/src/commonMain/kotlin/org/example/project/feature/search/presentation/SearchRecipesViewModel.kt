@@ -18,10 +18,12 @@ class SearchRecipesViewModel : BaseViewModel<SearchRecipesState, SearchRecipesEv
     initState = SearchRecipesState(
         isLoading = false,
         result = emptyList(),
+        query = "",
     )
 ) {
 
     private val queryFlow = MutableStateFlow("")
+    private val searchRecipesRepository: SearchRecipesRepository by PlatformSDK.lazyInstance()
 
     init {
         queryFlow
@@ -33,11 +35,14 @@ class SearchRecipesViewModel : BaseViewModel<SearchRecipesState, SearchRecipesEv
             .launchIn(scope)
     }
 
-    private val searchRecipesRepository: SearchRecipesRepository by PlatformSDK.lazyInstance()
-
     override fun obtainEvent(event: SearchRecipesEvent) {
         when (event) {
-            is SearchRecipesEvent.OnQueryChanged -> scope.launch { queryFlow.emit(event.query) }
+            is SearchRecipesEvent.OnQueryChanged -> scope.launch {
+                queryFlow.emit(event.query)
+                state = state.copy(query = event.query)
+            }
+
+            is SearchRecipesEvent.OnRecipeClicked -> action = SearchRecipesAction.OpenRecipe(event.recipeId)
         }
     }
 
@@ -45,6 +50,7 @@ class SearchRecipesViewModel : BaseViewModel<SearchRecipesState, SearchRecipesEv
         val searchResults = runSuspendCatching { searchRecipesRepository.searchRecipes(query) }.fold(
             onSuccess = { it },
             onFailure = {
+                println(it.stackTraceToString())
                 action = SearchRecipesAction.SearchRecipesFailure
                 return
             }

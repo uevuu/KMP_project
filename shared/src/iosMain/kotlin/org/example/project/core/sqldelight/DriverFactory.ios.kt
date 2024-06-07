@@ -5,8 +5,7 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import org.example.project.AppDatabase
 import org.example.project.core.configuration.PlatformConfiguration
 
-internal actual class DriverFactory {
-
+internal actual class DriverFactory actual constructor() {
     actual fun createDriver(
         name: String,
         platformConfiguration: PlatformConfiguration,

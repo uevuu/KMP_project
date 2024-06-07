@@ -4,9 +4,7 @@ import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.Settings
 import org.example.project.core.configuration.PlatformConfiguration
 
-
-internal actual class SettingsFactory {
-
+internal actual class SettingsFactory actual constructor() {
     actual fun create(
         platformConfiguration: PlatformConfiguration,
         name: String,

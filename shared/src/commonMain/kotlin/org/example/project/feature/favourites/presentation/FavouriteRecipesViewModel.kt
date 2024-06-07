@@ -1,6 +1,7 @@
 package org.example.project.feature.favourites.presentation
 
 import kotlinx.coroutines.launch
+import org.example.project.core.binding.FirebaseAnalyticsBinding
 import org.example.project.core.viewmodel.BaseViewModel
 import org.example.project.di.PlatformSDK
 import org.example.project.feature.common.data.AuthRepository
@@ -15,6 +16,7 @@ class FavouriteRecipesViewModel : BaseViewModel<FavouriteRecipesState, Favourite
 ) {
     private val favouritesRepository: FavouritesRepository by PlatformSDK.lazyInstance()
     private val authRepository: AuthRepository by PlatformSDK.lazyInstance()
+    private val firebaseAnalyticsBinding: FirebaseAnalyticsBinding by PlatformSDK.lazyInstance()
 
     override fun obtainEvent(event: FavouriteRecipesEvent) {
         when (event) {
@@ -34,6 +36,7 @@ class FavouriteRecipesViewModel : BaseViewModel<FavouriteRecipesState, Favourite
                         return@launch
                     }
                 )
+                firebaseAnalyticsBinding.logScreenLoaded("favourites")
                 state = state.copy(
                     isLoading = false,
                     result = favouriteRecipes,

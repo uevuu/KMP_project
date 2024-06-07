@@ -30,6 +30,7 @@ val networkModule = DI.Module(name = "networkModule") {
         Json {
             isLenient = true
             ignoreUnknownKeys = true
+            explicitNulls = false
         }
     }
 

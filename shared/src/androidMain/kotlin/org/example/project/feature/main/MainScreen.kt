@@ -6,20 +6,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,9 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import org.example.project.feature.common.domain.RecipeModel
@@ -55,11 +50,13 @@ import org.example.project.feature.navigation.createRecommendedWinesRoute
 import org.example.project.feature.navigation.favouritesRoute
 import org.example.project.feature.navigation.mainRoute
 import org.example.project.feature.navigation.randomRecipesRoute
+import org.example.project.feature.navigation.searchRecipesRoute
 import org.example.project.utils.rememberClick
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = viewModel(),
+    viewModel: MainViewModel = koinViewModel(),
     navController: NavController
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle()
@@ -103,6 +100,7 @@ private fun MainAction(action: MainAction?, navController: NavController) {
                 popUpTo(mainRoute) { inclusive = true }
             }
 
+            MainAction.OpenSearch -> navController.navigate(searchRecipesRoute)
             null -> Unit
         }
     }
@@ -149,7 +147,8 @@ private fun SearchField(eventConsumer: (MainEvent) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(end = 16.dp)
-                    .clip(MaterialTheme.shapes.large),
+                    .clip(MaterialTheme.shapes.large)
+                    .clickable { eventConsumer(MainEvent.OnSearchClicked) },
                 colors = TextFieldDefaults.colors(
                     disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                     disabledIndicatorColor = Color.Transparent
@@ -182,6 +181,7 @@ private fun RandomRecipesList(recipes: List<RecipeModel>, eventConsumer: (MainEv
                     .height(150.dp)
                     .width(200.dp)
                     .padding(start = 16.dp, end = if (recipes.last().id == recipe.id) 16.dp else 0.dp)
+                    .clip(MaterialTheme.shapes.medium)
                     .clickable {
                         eventConsumer(MainEvent.OnRecipeClicked(recipe.id))
                     },

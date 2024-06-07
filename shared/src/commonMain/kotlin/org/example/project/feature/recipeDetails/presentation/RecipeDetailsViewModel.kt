@@ -51,7 +51,6 @@ class RecipeDetailsViewModel : BaseViewModel<RecipeDetailsState, RecipeDetailsEv
             }
 
             RecipeDetailsEvent.OnAddToFavouritesClicked -> scope.launch {
-                println(state.userId)
                 val userId = state.userId ?: return@launch
                 if (state.isFavourite) {
                     runSuspendCatching { state.details?.id?.let { favouritesRepository.removeRecipe(it, userId) } }

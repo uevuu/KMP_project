@@ -1,6 +1,7 @@
 package org.example.project.di.modules
 
-import org.example.project.core.binding.FirebaseCrashlyticsBindings
+import org.example.project.core.binding.FirebaseAnalyticsBinding
+import org.example.project.core.binding.FirebaseCrashlyticsBinding
 import org.example.project.core.configuration.Configuration
 import org.example.project.core.configuration.PlatformConfiguration
 import org.kodein.di.DI
@@ -14,7 +15,11 @@ internal fun createConfigurationModule(configuration: Configuration) = DI.Module
     }
     bind<PlatformConfiguration>() with singleton { configuration.platformConfiguration }
 
-    bindSingleton<FirebaseCrashlyticsBindings> {
-        configuration.firebaseCrashlyticsBindings
+    bindSingleton<FirebaseCrashlyticsBinding> {
+        configuration.firebaseCrashlyticsBinding
+    }
+
+    bindSingleton<FirebaseAnalyticsBinding> {
+        configuration.firebaseAnalyticsBinding
     }
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import org.example.project.feature.navigation.createRecipeDetailsRoute
@@ -29,10 +28,11 @@ import org.example.project.feature.randomRecipes.presentation.RandomRecipesEvent
 import org.example.project.feature.randomRecipes.presentation.RandomRecipesState
 import org.example.project.feature.randomRecipes.presentation.RandomRecipesViewModel
 import org.example.project.utils.rememberClick
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RandomRecipesScreen(
-    viewModel: RandomRecipesViewModel = viewModel(),
+    viewModel: RandomRecipesViewModel = koinViewModel(),
     navController: NavController
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle()

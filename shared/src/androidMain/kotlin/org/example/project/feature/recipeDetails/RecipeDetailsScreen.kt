@@ -24,17 +24,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import org.example.project.feature.common.domain.RecipeModel
 import org.example.project.feature.recipeDetails.presentation.RecipeDetailsEvent
 import org.example.project.feature.recipeDetails.presentation.RecipeDetailsViewModel
 import org.example.project.utils.formatHtml
 import org.example.project.utils.rememberClick
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RecipeDetailsScreen(
-    viewModel: RecipeDetailsViewModel = viewModel(),
+    viewModel: RecipeDetailsViewModel = koinViewModel(),
     recipeId: Int,
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle()

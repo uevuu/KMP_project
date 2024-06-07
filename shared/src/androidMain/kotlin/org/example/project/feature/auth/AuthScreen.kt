@@ -24,7 +24,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import org.example.project.feature.auth.presentation.AuthAction
 import org.example.project.feature.auth.presentation.AuthEvent
@@ -33,11 +32,11 @@ import org.example.project.feature.auth.presentation.AuthViewModel
 import org.example.project.feature.navigation.authRoute
 import org.example.project.feature.navigation.mainRoute
 import org.example.project.utils.rememberClick
-import kotlin.math.sin
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel = viewModel(),
+    viewModel: AuthViewModel = koinViewModel(),
     navController: NavController
 ) {
     val state by viewModel.states.collectAsStateWithLifecycle()

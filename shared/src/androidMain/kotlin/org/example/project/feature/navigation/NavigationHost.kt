@@ -13,6 +13,7 @@ import org.example.project.feature.main.MainScreen
 import org.example.project.feature.randomRecipes.RandomRecipesScreen
 import org.example.project.feature.recipeDetails.RecipeDetailsScreen
 import org.example.project.feature.recommendedWines.RecommendedWinesScreen
+import org.example.project.feature.search.SearchRecipesScreen
 
 @Composable
 fun NavigationHost(navController: NavHostController = rememberNavController()) {
@@ -52,6 +53,9 @@ fun NavigationHost(navController: NavHostController = rememberNavController()) {
                     wineTypeName = wineTypeName
                 )
             }
+        }
+        composable(searchRecipesRoute) {
+            SearchRecipesScreen(navController = navController)
         }
     }
 }

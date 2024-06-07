@@ -1,6 +1,6 @@
 package org.example.project.core.binding
 
-interface FirebaseCrashlyticsBindings {
+interface FirebaseCrashlyticsBinding {
 
     fun nonFatal(error: Throwable)
 

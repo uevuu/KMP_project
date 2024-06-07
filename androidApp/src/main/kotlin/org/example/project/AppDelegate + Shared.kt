@@ -1,7 +1,8 @@
 package org.example.project
 
 import android.os.Build
-import org.example.project.core.binding.FirebaseCrashlyticsBindings
+import org.example.project.core.binding.FirebaseAnalyticsBinding
+import org.example.project.core.binding.FirebaseCrashlyticsBinding
 import org.example.project.core.configuration.Configuration
 import org.example.project.core.configuration.PlatformConfiguration
 import org.example.project.di.PlatformSDK
@@ -16,10 +17,11 @@ fun AppDelegate.initShared() {
         ),
         isDebug = BuildConfig.DEBUG,
         isHttpLoggingEnabled = BuildConfig.DEBUG,
-        firebaseCrashlyticsBindings = object : FirebaseCrashlyticsBindings {
+        firebaseCrashlyticsBinding = object : FirebaseCrashlyticsBinding {
             override fun nonFatal(error: Throwable) {}
             override fun setParams(key: String, value: String) {}
-        }
+        },
+        firebaseAnalyticsBinding = AndroidFirebaseAnalyticsBinding()
     )
     PlatformSDK.init(conf = config)
 }

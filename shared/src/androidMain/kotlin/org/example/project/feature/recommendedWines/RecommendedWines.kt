@@ -2,7 +2,6 @@ package org.example.project.feature.recommendedWines
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import org.example.project.feature.recommendedWines.presentation.RecommendedWinesAction
@@ -31,10 +29,11 @@ import org.example.project.feature.recommendedWines.presentation.RecommendedWine
 import org.example.project.feature.recommendedWines.presentation.RecommendedWinesState
 import org.example.project.feature.recommendedWines.presentation.RecommendedWinesViewModel
 import org.example.project.utils.rememberClick
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RecommendedWinesScreen(
-    viewModel: RecommendedWinesViewModel = viewModel(),
+    viewModel: RecommendedWinesViewModel = koinViewModel(),
     navController: NavController,
     wineType: String,
     wineTypeName: String

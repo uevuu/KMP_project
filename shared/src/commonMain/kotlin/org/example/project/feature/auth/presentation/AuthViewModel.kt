@@ -47,10 +47,7 @@ class AuthViewModel : BaseViewModel<AuthState, AuthEvent, AuthAction>(
                     authRepository.registerUser(state.name, state.password)
                 }.fold(
                     onSuccess = { action = AuthAction.AuthSuccess },
-                    onFailure = {
-                        println(it.stackTraceToString())
-                        state = state.copy(isError = true)
-                    }
+                    onFailure = { state = state.copy(isError = true) }
                 )
                 state = state.copy(isLoading = false)
             }
