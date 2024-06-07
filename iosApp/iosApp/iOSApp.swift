@@ -2,9 +2,15 @@ import SwiftUI
 
 @main
 struct iOSApp: App {
+    @AppStorage("isLoggedIn") private var isLoggedIn = false
+    
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+            if isLoggedIn {
+                MainView()
+            } else {
+                LoginView()
+            }
 		}
 	}
 }
