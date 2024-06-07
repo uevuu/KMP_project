@@ -1,0 +1,15 @@
+CREATE TABLE userDB (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    password BLOB NOT NULL
+);
+
+selectById:
+SELECT * FROM userDB WHERE id = ?;
+
+selectByName:
+SELECT * FROM userDB WHERE name = ?;
+
+insert:
+INSERT INTO userDB(name, password)
+VALUES (?, ?);

@@ -1,0 +1,26 @@
+import kotlin.String;
+import kotlin.collections.List;
+
+CREATE TABLE favouritesDB (
+    id INTEGER NOT NULL PRIMARY KEY,
+    pricePerServing REAL NOT NULL,
+    servings INTEGER NOT NULL,
+    readyInMinutes INTEGER NOT NULL,
+    image TEXT NOT NULL,
+    title TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    steps TEXT AS List<String> NOT NULL
+);
+
+selectById:
+SELECT * FROM favouritesDB WHERE id = ?;
+
+selectAll:
+SELECT * FROM favouritesDB;
+
+insert:
+INSERT INTO favouritesDB(id, pricePerServing, servings, readyInMinutes, image, title, summary, steps)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+removeById:
+DELETE FROM favouritesDB WHERE id = ?;
