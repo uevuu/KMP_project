@@ -1,12 +1,12 @@
-package org.example.project.feature.auth.data
+package org.example.project.feature.common.data
 
 import com.russhwolf.settings.Settings
+import io.ktor.utils.io.core.toByteArray
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import org.example.project.AppDatabase
 import org.example.project.UserDB
-import org.example.project.feature.utils.sha256
 
 private const val CURRENT_USER_ID = "CURRENT_USER_ID"
 
@@ -30,10 +30,19 @@ internal class AuthLocalDataSource(
 
     suspend fun createUser(name: String, password: String) = withContext(Dispatchers.IO) {
         if (getUserByName(name) != null) error("User already exists")
-        database.usersQueries.insert(name, password.sha256())
+        database.usersQueries.insert(name, password.toByteArray())
+        getUserByName(name)?.id ?: error("User not created")
+    }
+
+    suspend fun setCurrentUser(userId: Long) = withContext(Dispatchers.IO) {
+        settings.putLong(CURRENT_USER_ID, userId)
+    }
+
+    suspend fun removeCurrentUser() = withContext(Dispatchers.IO) {
+        settings.remove(CURRENT_USER_ID)
     }
 
     suspend fun comparePasswords(name: String, password: String): Boolean = withContext(Dispatchers.IO) {
-        getUserByName(name)?.password.contentEquals(password.sha256())
+        getUserByName(name)?.password.contentEquals(password.toByteArray())
     }
 }

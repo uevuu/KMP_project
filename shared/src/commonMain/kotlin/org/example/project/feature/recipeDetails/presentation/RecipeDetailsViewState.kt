@@ -6,6 +6,7 @@ data class RecipeDetailsState(
     val isLoading: Boolean,
     val details: RecipeModel?,
     val isFavourite: Boolean,
+    val userId: Long?,
 )
 
 sealed class RecipeDetailsAction {

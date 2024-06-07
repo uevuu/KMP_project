@@ -1,4 +1,4 @@
-package org.example.project.feature.auth.domain.entities
+package org.example.project.feature.common.domain
 
 internal data class AuthUserModel(
     val id: Int,

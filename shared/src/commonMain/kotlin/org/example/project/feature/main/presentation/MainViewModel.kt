@@ -4,6 +4,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.example.project.core.viewmodel.BaseViewModel
 import org.example.project.di.PlatformSDK
+import org.example.project.feature.common.data.AuthRepository
 import org.example.project.feature.common.data.RecipesRepository
 import org.example.project.feature.main.data.MainRepository
 import org.example.project.feature.utils.runSuspendCatching
@@ -20,6 +21,7 @@ class MainViewModel : BaseViewModel<MainState, MainEvent, MainAction>(
 
     private val mainRepository: MainRepository by PlatformSDK.lazyInstance()
     private val recipesRepository: RecipesRepository by PlatformSDK.lazyInstance()
+    private val authRepository: AuthRepository by PlatformSDK.lazyInstance()
 
     override fun obtainEvent(event: MainEvent) {
         when (event) {
@@ -52,6 +54,12 @@ class MainViewModel : BaseViewModel<MainState, MainEvent, MainAction>(
 
             is MainEvent.OnRecipeClicked -> action = MainAction.OpenRecipe(event.recipeId)
             MainEvent.OnFavouriteRecipesClicked -> action = MainAction.OpenFavourites
+            MainEvent.OnMoreRandomRecipesClicked -> action = MainAction.OpenRandomRecipes
+            is MainEvent.OnWineTypeClicked -> action = MainAction.OpenRecommendedWines(event.wineType)
+            MainEvent.OnExitClicked -> scope.launch {
+                runSuspendCatching { authRepository.signOutCurrentUser() }
+                    .onSuccess { action = MainAction.OpenAuth }
+            }
         }
     }
 }

@@ -144,6 +144,7 @@ system-ui-controller = { module = "com.google.accompanist:accompanist-systemuico
 
 # Cryptography
 cryptography-core = { module = "dev.whyoleg.cryptography:cryptography-core", version.ref = "cryptography" }
+cryptography-provider-jdk = { module = "dev.whyoleg.cryptography:cryptography-provider-jdk", version.ref = "cryptography" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

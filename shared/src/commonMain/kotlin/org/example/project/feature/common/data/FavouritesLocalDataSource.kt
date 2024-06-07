@@ -10,19 +10,20 @@ import org.example.project.feature.common.domain.RecipeModel
 internal class FavouritesLocalDataSource(
     private val database: AppDatabase
 ) {
-    
-    suspend fun getFavouriteRecipes(): List<FavouritesDB> = withContext(Dispatchers.IO) {
-        database.favouritesQueries.selectAll().executeAsList()
+
+    suspend fun getFavouriteRecipes(userId: Long): List<FavouritesDB> = withContext(Dispatchers.IO) {
+        database.favouritesQueries.selectAll(userId).executeAsList()
     }
 
-    suspend fun getFavouriteRecipeById(id: Int): FavouritesDB? = withContext(Dispatchers.IO) {
-        database.favouritesQueries.selectById(id.toLong()).executeAsOneOrNull()
+    suspend fun getFavouriteRecipeById(id: Long, userId: Long): FavouritesDB? = withContext(Dispatchers.IO) {
+        database.favouritesQueries.selectById(id, userId).executeAsOneOrNull()
     }
 
-    suspend fun setFavouriteRecipe(recipe: RecipeModel) {
+    suspend fun setFavouriteRecipe(recipe: RecipeModel, userId: Long) {
         withContext(Dispatchers.IO) {
             recipe.let {
                 database.favouritesQueries.insert(
+                    userId = userId,
                     id = it.id.toLong(),
                     pricePerServing = it.pricePerServing,
                     servings = it.servings.toLong(),
@@ -36,7 +37,7 @@ internal class FavouritesLocalDataSource(
         }
     }
 
-    suspend fun removeFavouriteRecipe(id: Long) = withContext(Dispatchers.IO) {
-        database.favouritesQueries.removeById(id)
+    suspend fun removeFavouriteRecipe(id: Long, userId: Long) = withContext(Dispatchers.IO) {
+        database.favouritesQueries.removeById(id, userId)
     }
 }

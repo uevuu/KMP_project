@@ -35,6 +35,8 @@ class RandomRecipesViewModel : BaseViewModel<RandomRecipesState, RandomRecipesEv
                     randomRecipes = randomRecipes,
                 )
             }
+
+            is RandomRecipesEvent.OnRecipeClicked -> action = RandomRecipesAction.OpenRecipe(event.recipeId)
         }
     }
 }

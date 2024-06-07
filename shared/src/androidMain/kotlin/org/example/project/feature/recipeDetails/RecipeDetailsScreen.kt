@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,14 +21,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import org.example.project.feature.common.domain.RecipeModel
 import org.example.project.feature.recipeDetails.presentation.RecipeDetailsEvent
 import org.example.project.feature.recipeDetails.presentation.RecipeDetailsViewModel
+import org.example.project.utils.formatHtml
 import org.example.project.utils.rememberClick
 
 @Composable
@@ -54,15 +55,25 @@ fun RecipeDetailsScreen(
 }
 
 @Composable
-fun RecipeDetailsContent(recipe: RecipeModel, isFavourite: Boolean, eventConsumer: (RecipeDetailsEvent) -> Unit) {
-    Column(modifier = Modifier.padding(16.dp)) {
+private fun RecipeDetailsContent(
+    recipe: RecipeModel,
+    isFavourite: Boolean,
+    eventConsumer: (RecipeDetailsEvent) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+    ) {
         Box {
             AsyncImage(
                 model = recipe.image,
                 contentDescription = null,
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
+                    .clip(MaterialTheme.shapes.medium)
                     .align(Alignment.Center)
             )
             FloatingActionButton(
@@ -80,9 +91,8 @@ fun RecipeDetailsContent(recipe: RecipeModel, isFavourite: Boolean, eventConsume
             modifier = Modifier.padding(top = 16.dp)
         )
         Text(
-            text = recipe.summary,
+            text = recipe.summary.formatHtml(),
             style = MaterialTheme.typography.bodyMedium,
-            fontSize = 16.sp,
             modifier = Modifier.padding(top = 8.dp)
         )
     }
