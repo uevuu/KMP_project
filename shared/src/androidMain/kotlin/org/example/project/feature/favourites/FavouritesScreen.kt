@@ -42,6 +42,10 @@ fun FavouritesScreen(
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val consumer = rememberClick<FavouriteRecipesEvent> { viewModel.obtainEvent(it) }
 
+    LaunchedEffect(key1 = Unit) {
+        viewModel.obtainEvent(FavouriteRecipesEvent.OnInit)
+    }
+
     Column {
         Text(
             text = "Избранные рецепты",

@@ -16,10 +16,6 @@ class FavouriteRecipesViewModel : BaseViewModel<FavouriteRecipesState, Favourite
     private val favouritesRepository: FavouritesRepository by PlatformSDK.lazyInstance()
     private val authRepository: AuthRepository by PlatformSDK.lazyInstance()
 
-    init {
-        obtainEvent(FavouriteRecipesEvent.OnInit)
-    }
-
     override fun obtainEvent(event: FavouriteRecipesEvent) {
         when (event) {
             FavouriteRecipesEvent.OnInit -> scope.launch {
