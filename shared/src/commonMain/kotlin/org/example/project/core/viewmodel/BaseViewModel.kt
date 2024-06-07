@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.example.project.core.CommonFlow
 import org.example.project.core.asCommonFlow
 
 abstract class BaseViewModel<State : Any, Event, Action>(
@@ -34,7 +35,7 @@ abstract class BaseViewModel<State : Any, Event, Action>(
     val states: CommonStateFlow<State>
         get() = _state.asStateFlow().asCommonStateFlow()
 
-    val actions: Flow<Action>
+    val actions: CommonFlow<Action>
         get() = _action.asSharedFlow().asCommonFlow()
 
     abstract fun obtainEvent(event: Event)

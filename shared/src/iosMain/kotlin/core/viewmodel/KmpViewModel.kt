@@ -7,6 +7,9 @@ import kotlinx.coroutines.cancel
 
 actual abstract class KmpViewModel {
 
-    protected actual val scope: CoroutineScope
-        get() = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    protected actual val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
+    fun onCleared() {
+        scope.cancel()
+    }
 }
