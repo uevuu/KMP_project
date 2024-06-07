@@ -18,7 +18,7 @@ data class WineResponse(
     @SerialName("averageRating")
     val averageRating: Double,
     @SerialName("description")
-    val description: String,
+    val description: String?,
     @SerialName("imageUrl")
     val imageUrl: String,
     @SerialName("link")

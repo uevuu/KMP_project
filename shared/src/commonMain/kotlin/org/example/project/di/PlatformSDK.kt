@@ -2,7 +2,7 @@ package org.example.project.di
 
 import org.example.project.core.configuration.Configuration
 import org.example.project.di.modules.authModule
-import org.example.project.di.modules.commonModule
+import org.example.project.di.modules.recipesModule
 import org.example.project.di.modules.createConfigurationModule
 import org.example.project.di.modules.favouriteRecipesModule
 import org.example.project.di.modules.mainModule
@@ -29,7 +29,7 @@ object PlatformSDK {
                 createConfigurationModule(conf),
                 networkModule,
                 storageModule,
-                commonModule,
+                recipesModule,
                 authModule,
                 mainModule,
                 favouriteRecipesModule,

@@ -9,7 +9,7 @@ internal class WinesRemoteDataSourceMapper {
             id = it.id,
             title = it.title,
             averageRating = it.averageRating,
-            description = it.description,
+            description = it.description.orEmpty(),
             imageUrl = it.imageUrl,
             link = it.link,
             price = it.price,

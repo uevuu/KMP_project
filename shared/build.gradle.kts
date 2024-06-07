@@ -40,7 +40,6 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kodein.di)
             implementation(libs.bundles.sqlDelightCommon)
-            implementation(libs.cryptography.core)
         }
 
         androidMain.dependencies {

@@ -2,25 +2,27 @@ import kotlin.String;
 import kotlin.collections.List;
 
 CREATE TABLE favouritesDB (
-    id INTEGER NOT NULL PRIMARY KEY,
+    userId INTEGER NOT NULL,
+    id INTEGER NOT NULL,
     pricePerServing REAL NOT NULL,
     servings INTEGER NOT NULL,
     readyInMinutes INTEGER NOT NULL,
     image TEXT NOT NULL,
     title TEXT NOT NULL,
     summary TEXT NOT NULL,
-    steps TEXT AS List<String> NOT NULL
+    steps TEXT AS List<String> NOT NULL,
+    PRIMARY KEY (userId, id)
 );
 
 selectById:
-SELECT * FROM favouritesDB WHERE id = ?;
+SELECT * FROM favouritesDB WHERE id = ? AND userId = ?;
 
 selectAll:
-SELECT * FROM favouritesDB;
+SELECT * FROM favouritesDB WHERE userId = ?;
 
 insert:
-INSERT INTO favouritesDB(id, pricePerServing, servings, readyInMinutes, image, title, summary, steps)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO favouritesDB(userId, id, pricePerServing, servings, readyInMinutes, image, title, summary, steps)
+VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?);
 
 removeById:
-DELETE FROM favouritesDB WHERE id = ?;
+DELETE FROM favouritesDB WHERE id = ? AND userId = ?;

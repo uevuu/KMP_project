@@ -6,13 +6,15 @@ internal class FavouritesRepository(
     private val localDataSource: FavouritesLocalDataSource,
     private val localDataSourceMapper: FavouritesLocalDataSourceMapper,
 ) {
-    suspend fun getRecipeById(id: Int): RecipeModel? = localDataSource.getFavouriteRecipeById(id)
-        ?.let(localDataSourceMapper::toDomainModel)
+    suspend fun getRecipeById(id: Int, userId: Long): RecipeModel? =
+        localDataSource.getFavouriteRecipeById(id.toLong(), userId)
+            ?.let(localDataSourceMapper::toDomainModel)
 
-    suspend fun getAllRecipes(): List<RecipeModel> = localDataSource.getFavouriteRecipes()
+    suspend fun getAllRecipes(userId: Long): List<RecipeModel> = localDataSource.getFavouriteRecipes(userId.toLong())
         .map { localDataSourceMapper.toDomainModel(it) }
 
-    suspend fun addRecipe(recipe: RecipeModel) = localDataSource.setFavouriteRecipe(recipe)
+    suspend fun addRecipe(recipe: RecipeModel, userId: Long) =
+        localDataSource.setFavouriteRecipe(recipe, userId)
 
-    suspend fun removeRecipe(id: Int) = localDataSource.removeFavouriteRecipe(id.toLong())
+    suspend fun removeRecipe(id: Int, userId: Long) = localDataSource.removeFavouriteRecipe(id.toLong(), userId)
 }

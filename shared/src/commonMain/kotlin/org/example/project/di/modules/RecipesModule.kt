@@ -8,7 +8,7 @@ import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
-val commonModule = DI.Module("commonModule") {
+val recipesModule = DI.Module("recipesModule") {
     bindProvider { RecipesRemoteDataSource(httpClient = instance()) }
     bindProvider { RecipesRemoteDataSourceMapper() }
     bindSingleton<RecipesRepository> {

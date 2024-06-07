@@ -1,25 +1,31 @@
 package org.example.project.feature.main
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -28,11 +34,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.max
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -42,9 +49,12 @@ import org.example.project.feature.main.presentation.MainAction
 import org.example.project.feature.main.presentation.MainEvent
 import org.example.project.feature.main.presentation.MainState
 import org.example.project.feature.main.presentation.MainViewModel
+import org.example.project.feature.navigation.authRoute
 import org.example.project.feature.navigation.createRecipeDetailsRoute
-import org.example.project.feature.navigation.favourites
-import org.example.project.feature.recipeDetails.presentation.RecipeDetailsEvent
+import org.example.project.feature.navigation.createRecommendedWinesRoute
+import org.example.project.feature.navigation.favouritesRoute
+import org.example.project.feature.navigation.mainRoute
+import org.example.project.feature.navigation.randomRecipesRoute
 import org.example.project.utils.rememberClick
 
 @Composable
@@ -60,45 +70,63 @@ fun MainScreen(
         viewModel.obtainEvent(MainEvent.OnInit)
     }
 
-    if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+    Column {
+        Text(
+            text = "Главная",
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        if (state.isLoading) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
+        } else {
+            MainContent(state, consumer)
         }
-    } else {
-        MainContent(state, consumer)
     }
 
     MainAction(action, navController)
 }
 
 @Composable
-fun MainAction(action: MainAction?, navController: NavController) {
+private fun MainAction(action: MainAction?, navController: NavController) {
     LaunchedEffect(action) {
         when (action) {
             MainAction.MainFailure -> Unit
             is MainAction.OpenRecipe -> navController.navigate(createRecipeDetailsRoute(action.recipeId))
-            MainAction.OpenFavourites -> navController.navigate(favourites)
+            MainAction.OpenFavourites -> navController.navigate(favouritesRoute)
+            MainAction.OpenRandomRecipes -> navController.navigate(randomRecipesRoute)
+            is MainAction.OpenRecommendedWines -> navController.navigate(
+                createRecommendedWinesRoute(
+                    wineType = action.wineType.value,
+                    wineTypeName = action.wineType.title
+                )
+            )
+
+            MainAction.OpenAuth -> navController.navigate(authRoute) {
+                popUpTo(mainRoute) { inclusive = true }
+            }
+
             null -> Unit
         }
     }
 }
 
 @Composable
-fun MainContent(state: MainState, eventConsumer: (MainEvent) -> Unit) {
+private fun MainContent(state: MainState, eventConsumer: (MainEvent) -> Unit) {
     Box {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
                 .align(Alignment.Center)
         ) {
-            SearchField()
+            SearchField(eventConsumer)
             WineTypesList(state, eventConsumer)
         }
         FloatingActionButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(32.dp),
             onClick = { eventConsumer(MainEvent.OnFavouriteRecipesClicked) },
         ) {
             Icon(Icons.Filled.Favorite, null)
@@ -107,43 +135,61 @@ fun MainContent(state: MainState, eventConsumer: (MainEvent) -> Unit) {
 }
 
 @Composable
-fun SearchField() {
-    TextField(
-        value = "",
-        onValueChange = {},
-        enabled = false,
-        placeholder = { Text(text = "Search...") },
+private fun SearchField(eventConsumer: (MainEvent) -> Unit) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                // Navigate to another screen
-            },
-        colors = TextFieldDefaults.colors(
-            disabledTextColor = Color.Transparent,
-            cursorColor = Color.Transparent,
-            disabledContainerColor = Color.Gray,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
-        )
-    )
+            .height(64.dp)
+            .padding(top = 8.dp, start = 16.dp, end = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Box(modifier = Modifier.weight(1f)) {
+            TextField(
+                value = "",
+                onValueChange = {},
+                enabled = false,
+                placeholder = { Text(text = "Найти...") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 16.dp)
+                    .clip(MaterialTheme.shapes.large),
+                colors = TextFieldDefaults.colors(
+                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    disabledIndicatorColor = Color.Transparent
+                )
+            )
+        }
+        Box(modifier = Modifier.size(46.dp)) {
+            Icon(
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium)
+                    .clickable { eventConsumer(MainEvent.OnExitClicked) }
+                    .padding(4.dp)
+                    .fillMaxSize(),
+                imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+                tint = MaterialTheme.colorScheme.secondary,
+                contentDescription = null
+            )
+        }
+    }
 }
 
 @Composable
-fun RandomRecipesList(recipes: List<RecipeModel>, eventConsumer: (MainEvent) -> Unit) {
+private fun RandomRecipesList(recipes: List<RecipeModel>, eventConsumer: (MainEvent) -> Unit) {
     LazyRow(
         modifier = Modifier.fillMaxWidth()
     ) {
         items(recipes, key = { it.id }) { recipe ->
             Card(
                 modifier = Modifier
-                    .width(200.dp)
                     .height(150.dp)
-                    .padding(end = 16.dp)
+                    .width(200.dp)
+                    .padding(start = 16.dp, end = if (recipes.last().id == recipe.id) 16.dp else 0.dp)
                     .clickable {
                         eventConsumer(MainEvent.OnRecipeClicked(recipe.id))
                     },
-                shape = RoundedCornerShape(8.dp),
+                shape = MaterialTheme.shapes.medium,
             ) {
                 Column(
                     modifier = Modifier
@@ -156,14 +202,15 @@ fun RandomRecipesList(recipes: List<RecipeModel>, eventConsumer: (MainEvent) -> 
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxWidth()
                             .height(100.dp)
+                            .fillMaxWidth()
+                            .clip(MaterialTheme.shapes.medium)
+                            .padding(bottom = 8.dp),
                     )
                     Text(
                         text = recipe.title,
-                        textAlign = TextAlign.Center,
-                        fontSize = 16.sp,
-                        modifier = Modifier.fillMaxWidth()
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 }
             }
@@ -172,29 +219,60 @@ fun RandomRecipesList(recipes: List<RecipeModel>, eventConsumer: (MainEvent) -> 
 }
 
 @Composable
-fun WineTypesList(state: MainState, eventConsumer: (MainEvent) -> Unit) {
+private fun WineTypesList(state: MainState, eventConsumer: (MainEvent) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
         item {
             Spacer(modifier = Modifier.height(16.dp))
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Посмотреть еще",
+                    modifier = Modifier
+                        .padding(end = 12.dp)
+                        .align(Alignment.CenterEnd)
+                        .clip(MaterialTheme.shapes.medium)
+                        .clickable { eventConsumer(MainEvent.OnMoreRandomRecipesClicked) }
+                        .padding(horizontal = 4.dp)
+                )
+            }
             RandomRecipesList(state.randomRecipes, eventConsumer)
             Spacer(modifier = Modifier.height(16.dp))
+        }
+        item {
+            Text(
+                text = "Сорта вин",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
+            )
         }
         items(state.wineTypes, key = { it.value }) { wineType ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                shape = RoundedCornerShape(8.dp),
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .clickable {
+                        eventConsumer(MainEvent.OnWineTypeClicked(wineType))
+                    },
+                shape = MaterialTheme.shapes.medium,
             ) {
-                Text(
-                    text = wineType.title,
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    fontSize = 18.sp
-                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = wineType.title,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        text = wineType.description,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
         }
     }
