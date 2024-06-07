@@ -33,6 +33,7 @@ import org.example.project.feature.auth.presentation.AuthViewModel
 import org.example.project.feature.navigation.authRoute
 import org.example.project.feature.navigation.mainRoute
 import org.example.project.utils.rememberClick
+import kotlin.math.sin
 
 @Composable
 fun AuthScreen(
@@ -84,6 +85,7 @@ private fun AuthContent(state: AuthState, eventConsumer: (AuthEvent) -> Unit) {
         ) {
             TextField(
                 value = state.name,
+                singleLine = true,
                 onValueChange = { eventConsumer(AuthEvent.OnNameChanged(it)) },
                 placeholder = { Text(text = "Введите имя") },
                 modifier = Modifier
@@ -99,6 +101,7 @@ private fun AuthContent(state: AuthState, eventConsumer: (AuthEvent) -> Unit) {
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
                 value = state.password,
+                singleLine = true,
                 onValueChange = { eventConsumer(AuthEvent.OnPasswordChanged(it)) },
                 placeholder = { Text(text = "Введите пароль") },
                 modifier = Modifier

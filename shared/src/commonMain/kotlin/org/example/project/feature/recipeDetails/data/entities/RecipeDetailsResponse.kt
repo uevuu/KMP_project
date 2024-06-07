@@ -14,7 +14,7 @@ data class RecipeDetailsResponse(
     @SerialName("readyInMinutes")
     val readyInMinutes: Int,
     @SerialName("image")
-    val image: String,
+    val image: String?,
     @SerialName("title")
     val title: String,
     @SerialName("summary")

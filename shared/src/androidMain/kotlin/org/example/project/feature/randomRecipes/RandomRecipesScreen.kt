@@ -39,10 +39,6 @@ fun RandomRecipesScreen(
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val consumer = rememberClick<RandomRecipesEvent> { viewModel.obtainEvent(it) }
 
-    LaunchedEffect(Unit) {
-        viewModel.obtainEvent(RandomRecipesEvent.OnInit)
-    }
-
     Column {
         Text(
             text = "Рандомные рецепты",

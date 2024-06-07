@@ -23,6 +23,10 @@ class MainViewModel : BaseViewModel<MainState, MainEvent, MainAction>(
     private val recipesRepository: RecipesRepository by PlatformSDK.lazyInstance()
     private val authRepository: AuthRepository by PlatformSDK.lazyInstance()
 
+    init {
+        obtainEvent(MainEvent.OnInit)
+    }
+
     override fun obtainEvent(event: MainEvent) {
         when (event) {
             MainEvent.OnInit -> scope.launch {

@@ -66,10 +66,6 @@ fun MainScreen(
     val action by viewModel.actions.collectAsStateWithLifecycle(initialValue = null)
     val consumer = rememberClick<MainEvent> { viewModel.obtainEvent(it) }
 
-    LaunchedEffect(Unit) {
-        viewModel.obtainEvent(MainEvent.OnInit)
-    }
-
     Column {
         Text(
             text = "Главная",

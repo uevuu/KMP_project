@@ -14,11 +14,12 @@ class RandomRecipesViewModel : BaseViewModel<RandomRecipesState, RandomRecipesEv
         randomRecipes = emptyList(),
     )
 ) {
+
+    private val recipesRepository: RecipesRepository by PlatformSDK.lazyInstance()
+
     init {
         obtainEvent(RandomRecipesEvent.OnInit)
     }
-
-    private val recipesRepository: RecipesRepository by PlatformSDK.lazyInstance()
 
     override fun obtainEvent(event: RandomRecipesEvent) {
         when (event) {
