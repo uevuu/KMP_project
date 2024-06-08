@@ -6,15 +6,20 @@
 //
 
 import SwiftUI
+import Combine
+import Shared
 
 struct MainView: View {
-    @AppStorage("isLoggedIn") private var isLoggedIn = false
     @State private var searchText: String = ""
     @State private var isSecretShowing = false
     @State private var items = Array(1...20).map { "Item \($0)" }
     @State private var verticalItems = Array(21...40).map { "Vertical Item \($0)" }
-    
+    @StateObject var mainViewModel = ViewModels().getMainViewModel().asObserveableObject()
+    @ObservedObject var authViewModel: AuthObservableObject
     @State private var showingFavourite = false
+    @Binding var isLoggedIn: Bool
+    @State private var showingAllRecipes = false
+    
     
     var body: some View {
         ZStack {
@@ -45,6 +50,7 @@ struct MainView: View {
                         .background(.black)
                     
                     Button(action: {
+                        mainViewModel.viewModel.obtainEvent(event: .OnExitClicked())
                         isLoggedIn = false
                     }) {
                         VStack {
@@ -54,6 +60,9 @@ struct MainView: View {
                                     .frame(width: 28, height: 28)
                             }
                         }
+                    }
+                    .onReceive(mainViewModel.viewModel.actions.asPublisher() as AnyPublisher<MainAction, Never>) { action in
+                        handleAction(action)
                     }
                     .padding([.top, .bottom, .trailing], 15)
                     .foregroundColor(.white)
@@ -78,19 +87,20 @@ struct MainView: View {
                         
                         Spacer()
                         
-                        Button("Весь список") {
-                            print("Смотреть все нажато")
+                        Button("Больше рецептов") {
+                            showingAllRecipes.toggle()
                         }
                         .padding(.horizontal)
                         .foregroundColor(.gray)
-                        
+                        .sheet(isPresented: $showingAllRecipes) {
+                            AllRecieptView()
+                        }
                     }
                     .padding(.vertical, 10)
                     
-                    // Горизонтально прокручиваемая коллекция
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 15) {
-                            ForEach(items, id: \.self) { item in
+                            ForEach(mainViewModel.state.randomRecipes, id: \.self) { recipe in
                                 VStack {
                                     Image(systemName: "photo")
                                         .resizable()
@@ -100,7 +110,7 @@ struct MainView: View {
                                         .cornerRadius(10)
                                     
                                     HStack {
-                                        Text("Борщ по украински, как у бабушки")
+                                        Text(recipe.title)
                                             .font(.caption)
                                             .multilineTextAlignment(.leading)
                                             .frame(width: 130)
@@ -115,7 +125,6 @@ struct MainView: View {
                     }
                     .padding(.bottom)
                     
-                    // Вертикально прокручиваемая коллекция
                     VStack {
                         HStack {
                             Text("Сорта вин")
@@ -124,10 +133,10 @@ struct MainView: View {
                             Spacer()
                         }
                         
-                        ForEach(verticalItems, id: \.self) { item in
+                        ForEach(mainViewModel.state.wineTypes, id: \.self) { wine in
                             VStack {
                                 HStack {
-                                    Text("Монсрарт")
+                                    Text(wine.title)
                                         .font(.headline)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(2)
@@ -135,7 +144,7 @@ struct MainView: View {
                                 }
                                 
                                 HStack {
-                                    Text("dsahdhsa dhiofiah sfhfhidhofihfhdshfi osdhffdfdhfsfdshi fkuhd fdsu fd fd fdjkr fdsf ")
+                                    Text(wine.description)
                                         .font(.caption)
                                         .lineLimit(4)
                                     Spacer()
@@ -144,6 +153,9 @@ struct MainView: View {
                             .padding([.top, .leading, .trailing, .bottom], 15)
                             .background(.gray)
                             .cornerRadius(10)
+//                            .onTapGesture {
+//                                print(wine.value)
+//                            }
                         }
                     }
                     .padding([.leading, .trailing], 15)
@@ -175,59 +187,13 @@ struct MainView: View {
             }
         }
     }
-}
-
-import Combine
-
-class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
-    private let url: URL
-    private var cancellable: AnyCancellable?
     
-    init(url: URL) {
-        self.url = url
-    }
-    
-    deinit {
-        cancel()
-    }
-    
-    func load() {
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in self?.image = $0 }
-    }
-    
-    func cancel() {
-        cancellable?.cancel()
-    }
-}
-
-struct AsyncImage<Placeholder: View>: View {
-    
-    @StateObject private var loader: ImageLoader
-    private let placeholder: Placeholder
-    
-    init(url: URL, @ViewBuilder placeholder: () -> Placeholder) {
-        self.placeholder = placeholder()
-        _loader = StateObject(wrappedValue: ImageLoader(url: url))
-    }
-    
-    var body: some View {
-        content
-            .onAppear(perform: loader.load)
-    }
-    
-    private var content: some View {
-        Group {
-            if loader.image != nil {
-                Image(uiImage: loader.image!)
-                    .resizable()
-            } else {
-                placeholder
-            }
+    private func handleAction(_ action: MainAction?) {
+        switch action {
+        case _ as MainAction.OpenAuth:
+            print("go home")
+        default:
+            break
         }
     }
 }

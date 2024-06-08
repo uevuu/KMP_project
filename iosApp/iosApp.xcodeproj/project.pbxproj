@@ -10,8 +10,17 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		29C2D51C2C13CFD30025160C /* Extension+Kotlin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D51B2C13CFD30025160C /* Extension+Kotlin.swift */; };
+		29C2D51E2C13D1100025160C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D51D2C13D1100025160C /* AppDelegate.swift */; };
+		29C2D5232C14302D0025160C /* FavouriteObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D5222C14302D0025160C /* FavouriteObservableObject.swift */; };
+		29C2D5252C1431CE0025160C /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D5242C1431CE0025160C /* AsyncImage.swift */; };
+		29C2D5282C1432000025160C /* MainObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D5272C1432000025160C /* MainObservableObject.swift */; };
+		29C2D52B2C14324A0025160C /* RecommendedWinesObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D52A2C14324A0025160C /* RecommendedWinesObservableObject.swift */; };
+		29C2D5302C1433620025160C /* AuthObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D52F2C1433620025160C /* AuthObservableObject.swift */; };
+		29C2D5342C14343F0025160C /* RandomRecipesObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D5332C14343F0025160C /* RandomRecipesObservableObject.swift */; };
+		29C2D5372C1436570025160C /* AnimatedGradientSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D5362C1436570025160C /* AnimatedGradientSquare.swift */; };
+		29C2D53A2C143C070025160C /* RecipeDetailsObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2D5392C143C070025160C /* RecipeDetailsObservableObject.swift */; };
 		5222648FAEF9312DF97AA97B /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0516898ACA6BBD324DA68BA4 /* Pods_iosApp.framework */; };
-		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		95AA13D22C124F230052EC6F /* good1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95AA13D12C124F230052EC6F /* good1.gif */; };
 		95AA13D52C1251030052EC6F /* bad2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95AA13D42C1251030052EC6F /* bad2.gif */; };
 		95AA13D72C1251080052EC6F /* bad1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95AA13D62C1251080052EC6F /* bad1.gif */; };
@@ -40,9 +49,18 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		29C2D51B2C13CFD30025160C /* Extension+Kotlin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Kotlin.swift"; sourceTree = "<group>"; };
+		29C2D51D2C13D1100025160C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		29C2D5222C14302D0025160C /* FavouriteObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteObservableObject.swift; sourceTree = "<group>"; };
+		29C2D5242C1431CE0025160C /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		29C2D5272C1432000025160C /* MainObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainObservableObject.swift; sourceTree = "<group>"; };
+		29C2D52A2C14324A0025160C /* RecommendedWinesObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedWinesObservableObject.swift; sourceTree = "<group>"; };
+		29C2D52F2C1433620025160C /* AuthObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObservableObject.swift; sourceTree = "<group>"; };
+		29C2D5332C14343F0025160C /* RandomRecipesObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipesObservableObject.swift; sourceTree = "<group>"; };
+		29C2D5362C1436570025160C /* AnimatedGradientSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedGradientSquare.swift; sourceTree = "<group>"; };
+		29C2D5392C143C070025160C /* RecipeDetailsObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsObservableObject.swift; sourceTree = "<group>"; };
 		3F9F4C729812BCC769C32229 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* KotlinProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KotlinProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95AA13D12C124F230052EC6F /* good1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = good1.gif; sourceTree = "<group>"; };
 		95AA13D42C1251030052EC6F /* bad2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bad2.gif; sourceTree = "<group>"; };
@@ -89,6 +107,78 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		29C2D5212C14300B0025160C /* Favourite */ = {
+			isa = PBXGroup;
+			children = (
+				95C24D3B2C068D1800C3BDDA /* FavouriteView.swift */,
+				29C2D5222C14302D0025160C /* FavouriteObservableObject.swift */,
+			);
+			path = Favourite;
+			sourceTree = "<group>";
+		};
+		29C2D5262C1431E90025160C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				95C24D3D2C068D1800C3BDDA /* MainView.swift */,
+				29C2D5272C1432000025160C /* MainObservableObject.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		29C2D5292C1432390025160C /* Wines */ = {
+			isa = PBXGroup;
+			children = (
+				95C24D3A2C068D1800C3BDDA /* WinesView.swift */,
+				29C2D52A2C14324A0025160C /* RecommendedWinesObservableObject.swift */,
+			);
+			path = Wines;
+			sourceTree = "<group>";
+		};
+		29C2D52E2C14333F0025160C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				95C24D392C068D1800C3BDDA /* LoginView.swift */,
+				29C2D52F2C1433620025160C /* AuthObservableObject.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		29C2D5312C1433980025160C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				29C2D51D2C13D1100025160C /* AppDelegate.swift */,
+				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		29C2D5322C1433EF0025160C /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				95AA13F02C12650E0052EC6F /* Constants */,
+				29C2D51B2C13CFD30025160C /* Extension+Kotlin.swift */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		29C2D5352C14345D0025160C /* AllReciepts */ = {
+			isa = PBXGroup;
+			children = (
+				95C24D3C2C068D1800C3BDDA /* AllRecieptView.swift */,
+				29C2D5332C14343F0025160C /* RandomRecipesObservableObject.swift */,
+			);
+			path = AllReciepts;
+			sourceTree = "<group>";
+		};
+		29C2D5382C143BB70025160C /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				95C24D3E2C068D1800C3BDDA /* DetailView.swift */,
+				29C2D5392C143C070025160C /* RecipeDetailsObservableObject.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 		3ABEF6398B03D661C0C0EA5D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,14 +218,13 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				95AA13F02C12650E0052EC6F /* Constants */,
+				29C2D5322C1433EF0025160C /* Supporting */,
+				29C2D5312C1433980025160C /* App */,
 				95AA13E92C125E830052EC6F /* Modifiers */,
 				95AA13D32C1250EC0052EC6F /* Gifs */,
 				95C24D382C068C5400C3BDDA /* Views */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
@@ -161,6 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				95AA13E72C125E600052EC6F /* GifImageView.swift */,
+				29C2D5242C1431CE0025160C /* AsyncImage.swift */,
+				29C2D5362C1436570025160C /* AnimatedGradientSquare.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -186,13 +277,13 @@
 		95C24D382C068C5400C3BDDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				29C2D5382C143BB70025160C /* Details */,
+				29C2D5352C14345D0025160C /* AllReciepts */,
+				29C2D52E2C14333F0025160C /* Auth */,
+				29C2D5292C1432390025160C /* Wines */,
 				95AA13E62C125E520052EC6F /* Support */,
-				95C24D3C2C068D1800C3BDDA /* AllRecieptView.swift */,
-				95C24D3E2C068D1800C3BDDA /* DetailView.swift */,
-				95C24D3B2C068D1800C3BDDA /* FavouriteView.swift */,
-				95C24D392C068D1800C3BDDA /* LoginView.swift */,
-				95C24D3D2C068D1800C3BDDA /* MainView.swift */,
-				95C24D3A2C068D1800C3BDDA /* WinesView.swift */,
+				29C2D5262C1431E90025160C /* Main */,
+				29C2D5212C14300B0025160C /* Favourite */,
 				95AA13E42C125B150052EC6F /* SecretView.swift */,
 			);
 			path = Views;
@@ -332,16 +423,25 @@
 			files = (
 				95AA13E52C125B150052EC6F /* SecretView.swift in Sources */,
 				95AA13E82C125E600052EC6F /* GifImageView.swift in Sources */,
+				29C2D52B2C14324A0025160C /* RecommendedWinesObservableObject.swift in Sources */,
+				29C2D5372C1436570025160C /* AnimatedGradientSquare.swift in Sources */,
+				29C2D5232C14302D0025160C /* FavouriteObservableObject.swift in Sources */,
+				29C2D5282C1432000025160C /* MainObservableObject.swift in Sources */,
 				95AA13EB2C125E930052EC6F /* MarkButtonModifier.swift in Sources */,
 				95C24D3F2C068D1800C3BDDA /* LoginView.swift in Sources */,
 				95AA13ED2C1263A50052EC6F /* LoginButtonModifier.swift in Sources */,
 				95C24D442C068D1800C3BDDA /* DetailView.swift in Sources */,
 				95C24D432C068D1800C3BDDA /* MainView.swift in Sources */,
+				29C2D51C2C13CFD30025160C /* Extension+Kotlin.swift in Sources */,
+				29C2D51E2C13D1100025160C /* AppDelegate.swift in Sources */,
+				29C2D5252C1431CE0025160C /* AsyncImage.swift in Sources */,
+				29C2D53A2C143C070025160C /* RecipeDetailsObservableObject.swift in Sources */,
 				95AA13EF2C1263D50052EC6F /* TextFieldModifier.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				95C24D412C068D1800C3BDDA /* FavouriteView.swift in Sources */,
-				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				29C2D5302C1433620025160C /* AuthObservableObject.swift in Sources */,
 				95C24D402C068D1800C3BDDA /* WinesView.swift in Sources */,
+				29C2D5342C14343F0025160C /* RandomRecipesObservableObject.swift in Sources */,
 				95AA13F32C12652E0052EC6F /* Constants+CGFloat.swift in Sources */,
 				95C24D422C068D1800C3BDDA /* AllRecieptView.swift in Sources */,
 			);

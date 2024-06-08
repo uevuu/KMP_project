@@ -4,7 +4,7 @@ import io.ktor.client.plugins.api.SetupRequest
 import io.ktor.client.plugins.api.createClientPlugin
 
 private const val API_KEY_NAME = "apiKey"
-private const val API_KEY = "d1d4ddb9df1f4616a2b8608816a5f3fa"
+private const val API_KEY = "5e39ad6046cd4125b0d1b095900a7901"
 
 fun createApiKeyPlugin() = createClientPlugin(name = "ApiKeyPlugin") {
     on(SetupRequest) { builder ->

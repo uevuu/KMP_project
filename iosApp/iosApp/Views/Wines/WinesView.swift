@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
+import Shared
+import Combine
 
 struct WinesView: View {
     
-    @State private var verticalItems = Array(21...40).map { "Vertical Item \($0)" }
-    
-    
+    @State var recommendedWinesviewModel = ViewModels().getRecommendedWinesViewModel().asObserveableObject()
+        
     var body: some View {
         Text("Вина сорта Монблан")
         ScrollView(showsIndicators: false) {
             VStack {
-                ForEach(verticalItems, id: \.self) { item in
+                ForEach(recommendedWinesviewModel.state.recommendedWines, id: \.self) { wine in
                     VStack {
                         HStack(spacing: 10) {
                             Image(systemName: "waterbottle")
@@ -27,14 +28,14 @@ struct WinesView: View {
                                 .cornerRadius(10)
                             
                             VStack {
-                                Text("Монсрарт fhdosif hfoids fshoi fds fosid")
+                                Text(wine.title)
                                     .font(.headline)
                                 Spacer()
                             }
                         }
                         
                         HStack {
-                            Text("Описание: dsahdhsa dhiofiah sfhfhidhofihfhdshfi osdhffdfdhfsfdshi fkuhd fdfdsh fuhds fhdks su fd fd fdjkr fdsf ")
+                            Text(wine.description)
                                 .font(.caption)
                             Spacer()
                         }
